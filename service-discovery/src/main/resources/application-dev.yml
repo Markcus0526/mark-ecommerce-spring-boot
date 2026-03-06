@@ -1,0 +1,30 @@
+
+server:
+  port: 8761
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: INFO
+      springframework:
+        web: INFO
+        data: INFO
+      boot:
+        autoconfigure:
+          data:
+            rest: INFO
+            jpa: INFO
+            orm: INFO
+

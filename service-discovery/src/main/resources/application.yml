@@ -1,0 +1,40 @@
+
+spring:
+  zipkin:
+    base-url: ${DISTRIBUTED_TRACING_URL:http://localhost:9411/}
+  application:
+    name: PLATFORM-SERVICE-REGISTRY
+  profiles:
+    active:
+    - production
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      platformServiceRegistry:
+        register-health-indicator: true
+        event-consumer-buffer-size: 20
+        automatic-transition-from-open-to-half-open-enabled: true
+        failure-rate-threshold: 70
+        minimum-number-of-calls: 10
+        permitted-number-of-calls-in-half-open-state: 8
+        sliding-window-size: 25
+        wait-duration-in-open-state: 15s
+        sliding-window-type: TIME_BASED
+        slow-call-duration-threshold: 3s
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+
+
+
+
+
+
+
+

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.markcus</groupId>
+		<artifactId>mark-ecommerce-spring-boot</artifactId>
+		<version>0.1.0</version>
+		<!-- Use relativePath to point directly to the root file -->
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>service-discovery</artifactId>
+	<name>service-discovery</name>
+	<description>Spring Boot microservice!</description>
+	<packaging>jar</packaging>
+
+	<properties>
+		<!-- Java 17+ is mandatory for Spring Boot 3.3.3 -->
+		<java.version>17</java.version>
+		<!-- Upgrading to 2023.0.3 to match the rest of your microservices -->
+		<spring-cloud.version>2023.0.3</spring-cloud.version>
+	</properties>
+
+	<dependencies>
+		<!--
+			Eureka Server 4.x:
+			Uses Jakarta EE 10 internally. Ensure your @EnableEurekaServer
+			application class is compiled with Java 17.
+		-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<finalName>${project.artifactId}-v${project.version}</finalName>
+	</build>
+</project>
