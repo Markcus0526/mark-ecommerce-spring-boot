@@ -1,0 +1,49 @@
+
+server:
+  port: 9296
+
+spring:
+  zipkin:
+    base-url: ${SPRING_ZIPKIN_BASE_URL:http://localhost:9411/}
+  application:
+    name: CLOUD-CONFIG
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/SelimHorri/cloud-config-server
+          clone-on-start: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      cloudConfig:
+        register-health-indicator: true
+        event-consumer-buffer-size: 10
+        automatic-transition-from-open-to-half-open-enabled: true
+        failure-rate-threshold: 50
+        minimum-number-of-calls: 5
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-size: 10
+        wait-duration-in-open-state: 5s
+        sliding-window-type: COUNT_BASED
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+
+
+
+
+
+
+
+
