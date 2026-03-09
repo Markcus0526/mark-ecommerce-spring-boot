@@ -40,12 +40,12 @@ public class SecurityConfig { // 1. REMOVED 'extends WebSecurityConfigurerAdapte
 						.requestMatchers("/api/categories/**").permitAll()
 						.requestMatchers("/api/products/**").permitAll()
 						.requestMatchers("/api/**")
-						.hasAnyRole(RoleBasedAuthority.ROLE_USER.name(),
-								RoleBasedAuthority.ROLE_ADMIN.name())
+						.hasAnyAuthority(RoleBasedAuthority.ROLE_ADMIN.name(),
+								RoleBasedAuthority.ROLE_USER.name())
 						.requestMatchers("/actuator/health/**", "/actuator/info/**")
 						.permitAll()
 						.requestMatchers("/actuator/**")
-						.hasAnyRole(RoleBasedAuthority.ROLE_ADMIN.name())
+						.hasAnyAuthority(RoleBasedAuthority.ROLE_ADMIN.name())
 						.anyRequest().authenticated()
 				)
 				.headers(headers -> headers
