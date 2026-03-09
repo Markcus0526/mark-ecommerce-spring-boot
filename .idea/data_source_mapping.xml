@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$PROJECT_DIR$/favourite-service/src/main/resources/db/migration/V1__create_favourites_table.sql" value="61fb2809-4acc-41f8-92f6-ff15037bcf8f" />
+    <file url="file://$PROJECT_DIR$/favourite-service/src/main/resources/db/migration/V2__insert_favourites_table.sql" value="61fb2809-4acc-41f8-92f6-ff15037bcf8f" />
+    <file url="file://$PROJECT_DIR$/user-service/src/main/resources/db/migration/V1__create_users_table.sql" value="61fb2809-4acc-41f8-92f6-ff15037bcf8f" />
+  </component>
+</project>

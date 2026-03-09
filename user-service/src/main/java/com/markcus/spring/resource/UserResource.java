@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping(value = {"/api/v1/platform-users"})
+@RequestMapping(value = {"/api/users"})
 @Slf4j
 @RequiredArgsConstructor
 public class UserResource {
@@ -34,9 +34,9 @@ public class UserResource {
 		return ResponseEntity.ok(DtoCollectionResponse.<UserDto>builder().collection(this.userService.findAll()).build());
 	}
 	
-	@GetMapping("/{platformUserId}")
+	@GetMapping("/{userId}")
 	public ResponseEntity<UserDto> findById(
-			@PathVariable("platformUserId") 
+			@PathVariable("userId")
 			@NotBlank(message = "Platform user ID cannot be blank")
 			@Valid final String platformUserId) {
 		log.info("*** UserDto, controller; fetch platform user by ID *");

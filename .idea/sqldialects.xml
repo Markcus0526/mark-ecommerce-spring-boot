@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/favourite-service/src/main/resources/db/migration/V1__create_favourites_table.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/favourite-service/src/main/resources/db/migration/V2__insert_favourites_table.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/user-service/src/main/resources/db/migration/V1__create_users_table.sql" dialect="H2" />
+  </component>
+</project>
