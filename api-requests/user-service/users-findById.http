@@ -1,0 +1,3 @@
+### GET request to example server
+GET http://localhost:8080/user-service/api/users/1
+Content-Type: application/json

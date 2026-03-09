@@ -36,19 +36,19 @@ spring:
       - id: ORDER-SERVICE
         uri: lb://ORDER-SERVICE
         predicates:
-        - Path=/order-service/**
+          - Path=/order-service/**
       - id: PAYMENT-SERVICE
         uri: lb://PAYMENT-SERVICE
         predicates:
-        - Path=/payment-service/**
+          - Path=/payment-service/**
       - id: PRODUCT-SERVICE
         uri: lb://PRODUCT-SERVICE
         predicates:
-        - Path=/product-service/**
+          - Path=/product-service/**
       - id: SHIPPING-SERVICE
         uri: lb://SHIPPING-SERVICE
         predicates:
-        - Path=/shipping-service/**
+          - Path=/shipping-service/**
       - id: USER-SERVICE
         uri: lb://USER-SERVICE
         predicates:
@@ -56,11 +56,13 @@ spring:
       - id: FAVOURITE-SERVICE
         uri: lb://FAVOURITE-SERVICE
         predicates:
-        - Path=/favourite-service/**
+          - Path=/favourite-service/**
       - id: PROXY-CLIENT
         uri: lb://PROXY-CLIENT
         predicates:
-        - Path=/app/**
+          - Path=/app/**
+#        filters:
+#          - StripPrefix=1 # removes /app
 
 resilience4j:
   circuitbreaker:
