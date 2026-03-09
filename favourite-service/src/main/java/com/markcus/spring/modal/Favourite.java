@@ -22,7 +22,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "user_wishlist_items")
+@Table(name = "favourites")
 @IdClass(Favourite.class)
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,15 +34,15 @@ public final class Favourite extends AbstractMappedEntity implements Serializabl
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name = "customer_id", nullable = false)
-	private Integer customerId;
+	@Column(name = "user_id", nullable = false)
+	private Integer userId;
 	
 	@Id
-	@Column(name = "item_id", nullable = false)
-	private Integer itemId;
+	@Column(name = "product_id", nullable = false)
+	private Integer productId;
 	
 	@Id
-	@Column(name = "added_timestamp", nullable = false)
+	@Column(name = "like_date", nullable = false)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@JsonFormat(pattern = AppConstant.LOCAL_DATE_TIME_FORMAT, shape = Shape.STRING)
