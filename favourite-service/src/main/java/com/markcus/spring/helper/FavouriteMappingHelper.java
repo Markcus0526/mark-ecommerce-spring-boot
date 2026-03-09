@@ -9,24 +9,24 @@ public interface FavouriteMappingHelper {
 	
 	public static FavouriteDto map(final Favourite favourite) {
 		return FavouriteDto.builder()
-				.userId(favourite.getCustomerId())
-				.productId(favourite.getItemId())
+				.userId(favourite.getUserId())
+				.productId(favourite.getProductId())
 				.likeDate(favourite.getAddedTimestamp())
 				.userDto(
 						UserDto.builder()
-							.userId(favourite.getCustomerId())
+							.userId(favourite.getUserId())
 							.build())
 				.productDto(
 						ProductDto.builder()
-						.productId(favourite.getItemId())
+						.productId(favourite.getProductId())
 						.build())
 				.build();
 	}
 	
 	public static Favourite map(final FavouriteDto favouriteDto) {
 		return Favourite.builder()
-				.customerId(favouriteDto.getUserId())
-				.itemId(favouriteDto.getProductId())
+				.userId(favouriteDto.getUserId())
+				.productId(favouriteDto.getProductId())
 				.addedTimestamp(favouriteDto.getLikeDate())
 				.build();
 	}
