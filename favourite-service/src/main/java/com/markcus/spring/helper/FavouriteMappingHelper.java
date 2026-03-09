@@ -11,7 +11,7 @@ public interface FavouriteMappingHelper {
 		return FavouriteDto.builder()
 				.userId(favourite.getUserId())
 				.productId(favourite.getProductId())
-				.likeDate(favourite.getAddedTimestamp())
+				.likeDate(favourite.getLikeDate())
 				.userDto(
 						UserDto.builder()
 							.userId(favourite.getUserId())
@@ -27,7 +27,7 @@ public interface FavouriteMappingHelper {
 		return Favourite.builder()
 				.userId(favouriteDto.getUserId())
 				.productId(favouriteDto.getProductId())
-				.addedTimestamp(favouriteDto.getLikeDate())
+				.likeDate(favouriteDto.getLikeDate())
 				.build();
 	}
 	

@@ -3,6 +3,7 @@ package com.markcus.spring.modal;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.markcus.spring.modal.id.FavouriteId;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "favourites")
-@IdClass(Favourite.class)
+@IdClass(FavouriteId.class)
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -47,7 +48,7 @@ public final class Favourite extends AbstractMappedEntity implements Serializabl
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@JsonFormat(pattern = AppConstant.LOCAL_DATE_TIME_FORMAT, shape = Shape.STRING)
 	@DateTimeFormat(pattern = AppConstant.LOCAL_DATE_TIME_FORMAT)
-	private LocalDateTime addedTimestamp;
+	private LocalDateTime likeDate;
 	
 }
 
