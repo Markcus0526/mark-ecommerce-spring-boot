@@ -35,13 +35,21 @@ public class SecurityConfig { // 1. REMOVED 'extends WebSecurityConfigurerAdapte
 				.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(auth -> auth // 3. Changed from 'authorizeRequests'
 						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // 4. Changed from 'antMatchers'
-						.requestMatchers("/", "/index", "**/css/**", "**/js/**").permitAll()
+//						.requestMatchers("/", "/index", "**/css/**", "**/js/**").permitAll()
+						.requestMatchers("/", "/index", "/css/**", "/js/**").permitAll()
+
 						.requestMatchers("/api/authenticate/**").permitAll()
 						.requestMatchers("/api/categories/**").permitAll()
 						.requestMatchers("/api/products/**").permitAll()
-						.requestMatchers("/api/**")
+						.requestMatchers("/api/payments/**").permitAll()
+						.requestMatchers("/api/shippings/**").permitAll()
+						.requestMatchers("/api/carts/**").permitAll()
+						.requestMatchers("/api/orders/**").permitAll()
+						.requestMatchers("/api/favourites/**").permitAll()
+						.requestMatchers("/api/**", "/app/api/**")
 						.hasAnyAuthority(RoleBasedAuthority.ROLE_ADMIN.name(),
 								RoleBasedAuthority.ROLE_USER.name())
+
 						.requestMatchers("/actuator/health/**", "/actuator/info/**")
 						.permitAll()
 						.requestMatchers("/actuator/**")

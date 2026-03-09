@@ -15,7 +15,7 @@ import com.markcus.spring.business.user.model.response.AddressUserServiceCollect
 import com.markcus.spring.business.user.service.AddressClientService;
 
 @RestController
-@RequestMapping("/api/address")
+@RequestMapping("/api/addresses")
 public class AddressController {
 	
 	private final AddressClientService addressClientService;

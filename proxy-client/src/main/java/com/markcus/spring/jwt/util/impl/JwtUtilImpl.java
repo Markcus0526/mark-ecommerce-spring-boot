@@ -20,9 +20,13 @@ import javax.crypto.SecretKey;
 
 @Component
 public class JwtUtilImpl implements JwtUtil {
-	
-	private static final String SECRET_KEY = "secret";
-	
+
+	private static final String SECRET_KEY = "zB4fG9hK3mN7pQ2rS5tV8wX1zA4bC6dE9fG2hJ5kM8nPrSuVwXyA";
+
+	private SecretKey getSigningKey() {
+		return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+	}
+
 	@Override
 	public String extractUsername(final String token) {
 		return this.extractClaims(token, Claims::getSubject);
@@ -38,17 +42,13 @@ public class JwtUtilImpl implements JwtUtil {
 		final Claims claims = this.extractAllClaims(token);
 		return claimsResolver.apply(claims);
 	}
-	
-	private Claims extractAllClaims(final String token) {
-//		return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
-		// 1. Convert your String SECRET_KEY into a SecretKey object
-		SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
 
+	private Claims extractAllClaims(final String token) {
 		return Jwts.parser()
-				.verifyWith(key)           // Replaces setSigningKey()
-				.build()                   // New mandatory build step
-				.parseSignedClaims(token)  // <--- FIXED: Replaces parseClaimsJws()
-				.getPayload();             // Replaces getBody()
+				.verifyWith(getSigningKey()) // Use the Key object
+				.build()
+				.parseSignedClaims(token)
+				.getPayload();
 	}
 	
 	private Boolean isTokenExpired(final String token) {
@@ -63,12 +63,12 @@ public class JwtUtilImpl implements JwtUtil {
 	
 	private String createToken(final Map<String, Object> claims, final String subject) {
 		return Jwts.builder()
-					.setClaims(claims)
-					.setSubject(subject)
-					.setIssuedAt(new Date(System.currentTimeMillis()))
-					.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-					.signWith(SignatureAlgorithm.HS256, SECRET_KEY)
-		.compact();
+				.claims(claims)
+				.subject(subject)
+				.issuedAt(new Date(System.currentTimeMillis()))
+				.expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+				.signWith(getSigningKey())
+				.compact();
 	}
 	
 	@Override

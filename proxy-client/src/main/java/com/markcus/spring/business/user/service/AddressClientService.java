@@ -18,7 +18,7 @@ import com.markcus.spring.business.user.model.response.AddressUserServiceCollect
 @FeignClient(
 		name = "USER-SERVICE",
 		contextId = "addressClientService",
-		path = "/user-service/api/address",
+		path = "/user-service/api/addresses",
 		dismiss404 = true)
 public interface AddressClientService {
 	
