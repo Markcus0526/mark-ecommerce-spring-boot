@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto findByUsername(final String username) {
 		log.info("*** UserDto, service; fetch user with username *");
-		return UserMappingHelper.map(this.userRepository.findByCredentialUsername(username)
+		return UserMappingHelper.map(this.userRepository.findByUserCredentialUsername(username)
 				.orElseThrow(() -> new UserObjectNotFoundException(String.format("User with username: %s not found", username))));
 	}
 	

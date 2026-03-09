@@ -10,7 +10,7 @@ spring:
   config:
     import: ${CONFIG_SERVER_URL:optional:configserver:http://localhost:9296}
   application:
-    name: PLATFORM-USER-MANAGEMENT
+    name: USER-SERVICE
   profiles:
     active:
     - production
