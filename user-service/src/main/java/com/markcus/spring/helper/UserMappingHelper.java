@@ -9,9 +9,9 @@ public interface UserMappingHelper {
 	
 	public static UserDto map(final User user) {
 		return UserDto.builder()
-				.userId(user.getId())
-				.firstName(user.getGivenName())
-				.lastName(user.getFamilyName())
+				.userId(user.getUserId())
+				.firstName(user.getFirstName())
+				.lastName(user.getLastName())
 				.imageUrl(user.getProfilePictureUrl())
 				.email(user.getEmail())
 				.phone(user.getContactNumber())
@@ -31,9 +31,9 @@ public interface UserMappingHelper {
 	
 	public static User map(final UserDto userDto) {
 		return User.builder()
-				.id(userDto.getUserId())
-				.givenName(userDto.getFirstName())
-				.familyName(userDto.getLastName())
+				.userId(userDto.getUserId())
+				.firstName(userDto.getFirstName())
+				.lastName(userDto.getLastName())
 				.profilePictureUrl(userDto.getImageUrl())
 				.email(userDto.getEmail())
 				.contactNumber(userDto.getPhone())

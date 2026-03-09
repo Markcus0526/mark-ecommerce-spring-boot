@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "platform_users")
+@Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true, exclude = {"addresses", "credential"})
@@ -26,14 +26,14 @@ public final class User extends AbstractMappedEntity implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", unique = true, nullable = false, updatable = false)
-	private Integer id;
+	@Column(name = "user_id", unique = true, nullable = false, updatable = false)
+	private Integer userId;
 	
-	@Column(name = "given_name")
-	private String givenName;
+	@Column(name = "first_name")
+	private String firstName;
 	
-	@Column(name = "family_name")
-	private String familyName;
+	@Column(name = "last_name")
+	private String lastName;
 	
 	@Column(name = "profile_picture_url")
 	private String profilePictureUrl;
@@ -45,10 +45,10 @@ public final class User extends AbstractMappedEntity implements Serializable {
 	private String contactNumber;
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "platformUser", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "users", fetch = FetchType.LAZY)
 	private Set<Address> userAddresses;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "platformUser")
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "users")
 	private Credential userCredential;
 	
 }
