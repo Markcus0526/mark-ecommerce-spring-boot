@@ -1,0 +1,113 @@
+services:
+  # 1. Config Server: Must start first to provide properties
+  cloud-config:
+    build:
+      context: .
+      dockerfile: cloud-config/Dockerfile
+    ports:
+      - "9296:9296"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9296/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 2. Service Discovery: Registration hub
+  service-discovery:
+    build:
+      context: .
+      dockerfile: service-discovery/Dockerfile
+    ports:
+      - "8761:8761"
+    depends_on:
+      cloud-config:
+        condition: service_healthy
+
+  # 3. API Gateway: Public entry point
+  api-gateway:
+    build:
+      context: .
+      dockerfile: api-gateway/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      service-discovery:
+        condition: service_started
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://cloud-config:9296
+
+  # Business Services (Example Grouping)
+  user-service:
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
+    ports: ["8700:8700"]
+    depends_on: [service-discovery]
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://cloud-config:9296
+
+  product-service:
+    build:
+      context: .
+      dockerfile: product-service/Dockerfile
+    ports: ["8500:8500"]
+    depends_on: [service-discovery]
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://cloud-config:9296
+
+  order-service:
+    build:
+      context: .
+      dockerfile: order-service/Dockerfile
+    ports: ["8300:8300"]
+    depends_on: [service-discovery]
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://cloud-config:9296
+
+  payment-service:
+    build:
+      context: .
+      dockerfile: payment-service/Dockerfile
+    ports: ["8400:8400"]
+    depends_on: [service-discovery]
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://cloud-config:9296
+
+  shipping-service:
+    build:
+      context: .
+      dockerfile: shipping-service/Dockerfile
+    ports: ["8600:8600"]
+    depends_on: [service-discovery]
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://cloud-config:9296
+
+  favourite-service:
+    build:
+      context: .
+      dockerfile: favourite-service/Dockerfile
+    ports: ["8800:8800"]
+    depends_on: [service-discovery]
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://cloud-config:9296
+
+  proxy-client:
+    build:
+      context: .
+      dockerfile: proxy-client/Dockerfile
+    ports: ["8900:8900"]
+    depends_on: [service-discovery]
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://cloud-config:9296
+
+networks:
+  default:
+    name: microservices-network
