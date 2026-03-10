@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: D:\0_COMMON\kompose\kompose-windows-amd64.exe convert
+    kompose.version: 1.38.0 (a8f5d1cbd)
+  labels:
+    io.kompose.service: payment-service
+  name: payment-service
+spec:
+  ports:
+    - name: "8400"
+      port: 8400
+      targetPort: 8400
+  selector:
+    io.kompose.service: payment-service

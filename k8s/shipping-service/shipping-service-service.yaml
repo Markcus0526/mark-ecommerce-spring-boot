@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: D:\0_COMMON\kompose\kompose-windows-amd64.exe convert
+    kompose.version: 1.38.0 (a8f5d1cbd)
+  labels:
+    io.kompose.service: shipping-service
+  name: shipping-service
+spec:
+  ports:
+    - name: "8600"
+      port: 8600
+      targetPort: 8600
+  selector:
+    io.kompose.service: shipping-service

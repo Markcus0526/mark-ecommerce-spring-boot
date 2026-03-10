@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: D:\0_COMMON\kompose\kompose-windows-amd64.exe convert
+    kompose.version: 1.38.0 (a8f5d1cbd)
+  labels:
+    io.kompose.service: cloud-config
+  name: cloud-config
+spec:
+  ports:
+    - name: "9296"
+      port: 9296
+      targetPort: 9296
+  selector:
+    io.kompose.service: cloud-config
