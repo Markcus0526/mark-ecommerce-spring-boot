@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: D:\0_COMMON\kompose\kompose-windows-amd64.exe convert
+    kompose.cmd: kompose convert
     kompose.version: 1.38.0 (a8f5d1cbd)
   labels:
     io.kompose.service: proxy-client
@@ -15,20 +15,21 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: D:\0_COMMON\kompose\kompose-windows-amd64.exe convert
+        kompose.cmd: kompose convert
         kompose.version: 1.38.0 (a8f5d1cbd)
       labels:
         io.kompose.service: proxy-client
     spec:
       # --- INIT CONTAINERS: These run and must finish before the main app starts ---
-      initContainers:
-        - name: wait-for-eureka
-          image: busybox:1.28
-          command: [ 'sh', '-c', "until nslookup service-discovery; do echo waiting for eureka; sleep 2; done" ]
+      # --- INIT CONTAINERS: These run and must finish before the main app starts ---
+      #  initContainers:
+      #    - name: wait-for-service-discovery
+      #      image: busybox:1.28
+      #      command: [ 'sh', '-c', "until nslookup service-discovery; do echo waiting for service-discovery; sleep 2; done" ]
 
-        - name: wait-for-config-server
-          image: busybox:1.28
-          command: [ 'sh', '-c', "until nc -z cloud-config 9296; do echo waiting for config-server; sleep 2; done" ]
+      #    - name: wait-for-cloud-config
+      #      image: busybox:1.28
+      #      command: [ 'sh', '-c', "until nc -z cloud-config 9296; do echo waiting for cloud-config; sleep 2; done" ]
 
       # --- MAIN CONTAINER: Your Spring Boot Application ---
       containers:
@@ -51,9 +52,9 @@ spec:
               protocol: TCP
           resources:
             limits:
-              memory: "512Mi"
-              cpu: "500m"
+              memory: "2Gi"   # 2048Mi
+              cpu: "1000m"    # 1 Full Core
             requests:
-              memory: "256Mi"
-              cpu: "250m"
+              memory: "1Gi"   # 1024Mi
+              cpu: "500m"
       restartPolicy: Always

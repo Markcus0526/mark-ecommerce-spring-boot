@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: D:\0_COMMON\kompose\kompose-windows-amd64.exe convert
+    kompose.cmd: kompose convert
     kompose.version: 1.38.0 (a8f5d1cbd)
   labels:
     io.kompose.service: cloud-config
@@ -15,13 +15,15 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: D:\0_COMMON\kompose\kompose-windows-amd64.exe convert
+        kompose.cmd: kompose convert
         kompose.version: 1.38.0 (a8f5d1cbd)
       labels:
         io.kompose.service: cloud-config
     spec:
       containers:
         - env:
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: http://service-discovery:8761/eureka/
             - name: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
               value: http://zipkin:9411/api/v2/spans
             - name: SPRING_PROFILES_ACTIVE
@@ -29,13 +31,12 @@ spec:
           image: markcus0526/mark-ecommerce-spring-boot-cloud-config:latest  # Ensure this matches your local image name
           imagePullPolicy: IfNotPresent
           livenessProbe:
-            exec:
-              command:
-                - curl
-                - -f
-                - http://localhost:9296/actuator/health
-            failureThreshold: 5
-            periodSeconds: 10
+            httpGet:
+              path: /actuator/health
+              port: 9296
+            initialDelaySeconds: 90
+            periodSeconds: 15
+            failureThreshold: 3
             timeoutSeconds: 5
           name: cloud-config
           ports:
@@ -43,9 +44,9 @@ spec:
               protocol: TCP
           resources:
             limits:
-              memory: "512Mi"
-              cpu: "500m"
+              memory: "2Gi"   # 2048Mi
+              cpu: "1000m"    # 1 Full Core
             requests:
-              memory: "256Mi"
-              cpu: "250m"
+              memory: "1Gi"   # 1024Mi
+              cpu: "500m"
       restartPolicy: Always

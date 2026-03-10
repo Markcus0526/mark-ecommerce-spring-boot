@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: D:\0_COMMON\kompose\kompose-windows-amd64.exe convert
+    kompose.cmd: kompose convert
     kompose.version: 1.38.0 (a8f5d1cbd)
   labels:
     io.kompose.service: zipkin
@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: D:\0_COMMON\kompose\kompose-windows-amd64.exe convert
+        kompose.cmd: kompose convert
         kompose.version: 1.38.0 (a8f5d1cbd)
       labels:
         io.kompose.service: zipkin
@@ -28,9 +28,9 @@ spec:
               protocol: TCP
           resources:
             limits:
-              memory: "512Mi"
-              cpu: "500m"
+              memory: "1Gi"      # Increased from 512Mi
+              cpu: "1000m"       # Increased from 500m to speed up startup
             requests:
-              memory: "256Mi"
-              cpu: "250m"
+              memory: "512Mi"    # Increased from 256Mi
+              cpu: "500m"
       restartPolicy: Always
