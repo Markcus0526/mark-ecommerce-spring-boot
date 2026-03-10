@@ -31,13 +31,17 @@ public class SecurityConfig { // 1. REMOVED 'extends WebSecurityConfigurerAdapte
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-				.cors(AbstractHttpConfigurer::disable) // 2. NEW Lambda DSL syntax
+				.cors(AbstractHttpConfigurer::disable)
 				.csrf(AbstractHttpConfigurer::disable)
-				.authorizeHttpRequests(auth -> auth // 3. Changed from 'authorizeRequests'
-						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // 4. Changed from 'antMatchers'
-//						.requestMatchers("/", "/index", "**/css/**", "**/js/**").permitAll()
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 						.requestMatchers("/", "/index", "/css/**", "/js/**").permitAll()
 
+						// 1. Move ALL permitAll rules to the TOP
+						// 2. Explicitly include the /app/ prefix for your authentication endpoint
+						.requestMatchers("/app/api/authenticate/**", "/api/authenticate/**").permitAll()
+
+						// 3. Keep specific resource permits above the catch-all
 						.requestMatchers("/api/authenticate/**").permitAll()
 						.requestMatchers("/api/categories/**").permitAll()
 						.requestMatchers("/api/products/**").permitAll()
@@ -49,6 +53,8 @@ public class SecurityConfig { // 1. REMOVED 'extends WebSecurityConfigurerAdapte
 						.requestMatchers("/api/credentials/**").permitAll()
 						.requestMatchers("/api/addresses/**").permitAll()
 						.requestMatchers("/api/verificationTokens/**").permitAll()
+
+						// 4. This restricted block MUST come after the permits above
 						.requestMatchers("/api/**", "/app/api/**")
 						.hasAnyAuthority(RoleBasedAuthority.ROLE_ADMIN.name(),
 								RoleBasedAuthority.ROLE_USER.name())
