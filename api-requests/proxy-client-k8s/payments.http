@@ -1,5 +1,5 @@
 ### GET request to payments
-GET http://localhost:8080/app/api/payments
+GET http://173.249.29.61:30897/app/api/payments
 Content-Type: application/json
 
 ###

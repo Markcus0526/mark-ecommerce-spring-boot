@@ -1,0 +1,16 @@
+### POST request to authenticate
+POST http://173.249.29.61:30897/app/api/authenticate
+Content-Type: application/json
+
+{
+  "username": "markcus",
+  "password": "password"
+}
+
+> {%
+    // Access the specific field 'token' from the response object
+    client.global.set("token", response.body.jwtToken);
+    client.log("Clean Token set: " + client.global.get("token"));
+%}
+
+###

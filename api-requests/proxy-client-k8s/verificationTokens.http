@@ -1,0 +1,5 @@
+### GET request to verificationTokens
+GET http://173.249.29.61:30897/app/api/verificationTokens
+Content-Type: application/json
+
+###

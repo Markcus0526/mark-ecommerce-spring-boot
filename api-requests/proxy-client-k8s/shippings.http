@@ -1,5 +1,5 @@
 ### GET request to shippings
-GET http://localhost:8080/app/api/shippings
+GET http://173.249.29.61:30897/app/api/shippings
 Content-Type: application/json
 
 ###

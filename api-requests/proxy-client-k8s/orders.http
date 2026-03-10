@@ -1,5 +1,5 @@
 ### GET request to orders
-GET http://localhost:8080/app/api/orders
+GET http://173.249.29.61:30897/app/api/orders
 Content-Type: application/json
 
 ###

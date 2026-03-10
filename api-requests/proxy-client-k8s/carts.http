@@ -1,0 +1,5 @@
+### GET request to carts
+GET http://173.249.29.61:30897/app/api/carts
+Content-Type: application/json
+
+###
