@@ -1,0 +1,4 @@
+### GET request to categories
+GET http://173.249.29.61:30897/app/api/categories
+
+###

@@ -1,0 +1,5 @@
+### GET request to favourites
+GET http://173.249.29.61:30897/app/api/favourites
+Content-Type: application/json
+
+###

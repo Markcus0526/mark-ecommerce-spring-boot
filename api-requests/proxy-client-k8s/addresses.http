@@ -1,0 +1,5 @@
+### GET request to addresses
+GET http://173.249.29.61:30897/app/api/addresses
+Content-Type: application/json
+
+###
